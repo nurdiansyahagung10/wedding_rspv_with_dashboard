@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --color-ivory: #f8f3ea;
+    --color-paper: #fffdf8;
+
+    --color-gold: #a87935;
+    --color-goldDark: #8b642e;
+    --color-goldLight: #c9a25b;
+    --color-goldBorder: #d8c7ad;
+
+    --color-ink: #332d27;
+    --color-inkMuted: #776e63;
+    --color-inkNav: #6f6458;
+
+    --color-lineColor: #ded2c1;
+    --color-footerBg: #eee4d5;
+
+    --font-serif: "Cormorant Garamond", serif;
+    --font-sans: "Montserrat", Arial, sans-serif;
+}
+
+.btn-active-primary {
+    background-color: #a87935 !important;
+    color: #ffffff !important;
+}
+
+.carousel-slide {
+    transition: transform 0.5s ease-in-out;
+}
+
+#infiniteTrack {
+    touch-action: pan-y;
+    will-change: transform;
+}
+
+@keyframes rotateMusic {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.music-spinning {
+    animation: rotateMusic 4s linear infinite;
+}
+
+
+html{
+    scroll-behavior: smooth !important;
+}
