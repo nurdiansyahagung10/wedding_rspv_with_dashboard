@@ -15,14 +15,10 @@ class GuestForm
             ->components([
                 TextInput::make('name')->columnSpanFull()
                     ->required(),
-                Toggle::make('is_private_cat')->columnSpanFull()
-                    ->required(),
-                Toggle::make('is_attending')->columnSpanFull()
-                    ->required(),
-                Toggle::make('has_answer')->columnSpanFull()
-                    ->required(),
+                Toggle::make('is_private_cat')->columnSpanFull(),
+                Toggle::make('is_attending')->columnSpanFull(),
+                Toggle::make('has_answer')->columnSpanFull(),
                 TextInput::make('amount_of_guest')->columnSpanFull()
-                    ->required()
                     ->numeric()
                     ->default(1),
                 Textarea::make('wishes')

@@ -25,9 +25,9 @@ class GuestsTable
                     ->sortable()
                     ->weight('bold'),
 
-  IconColumn::make('is_attending')
+                IconColumn::make('is_attending')
                     ->boolean(),
-                                    IconColumn::make('has_answer')
+                IconColumn::make('has_answer')
                     ->label('RSVP')
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
@@ -51,8 +51,9 @@ class GuestsTable
                     ->label('Ucapan & Doa')
                     ->limit(35)
                     ->tooltip(fn ($record): ?string => $record->wishes)
-                    ->toggleable(isToggledHiddenByDefault: false),
-                      TextColumn::make('url')
+                    ->toggleable(isToggledHiddenByDefault: false) ->default('-'),
+                
+                TextColumn::make('url')
                     ->label('URL')
                     ->state(function ($record) {
                             return env('APP_DOMAIN_URL') . '/'. $record->uuid;

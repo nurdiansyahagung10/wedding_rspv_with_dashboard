@@ -17,7 +17,7 @@ class GuestController extends Controller
         if($data == null){
             abort(404);
         }
-        return view('guest.app', ['data' => $data]);
+        return view('Guest.app', ['data' => $data]);
     }
 
     public function update(Request $request,$id){
@@ -35,6 +35,6 @@ class GuestController extends Controller
             $data->wishes = trim($request->wishes);
         }
         $data->save();
-        return redirect()->route('guest.index', ['uuid' => $data->uuid]);
+        return redirect()->route('Guest.index', ['uuid' => $data->uuid]);
     }
 }
