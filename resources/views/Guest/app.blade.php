@@ -1,4 +1,4 @@
-@extends('guest.layout.main')
+@extends('Guest.Layout.main')
 
 @section('main')
     <section id="coverGate"
@@ -47,7 +47,7 @@
         </div>
     </section>
 
-    @include('guest.layout.nav')
+    @include('Guest.Layout.nav')
 
     <header id="home"
         class="min-h-screen grid place-items-center relative overflow-hidden bg-[radial-gradient(circle_at_50%_20%,#fffdf8_0%,#f8f3ea_55%,#eee4d5_100%)]">

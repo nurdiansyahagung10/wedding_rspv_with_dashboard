@@ -28,7 +28,7 @@ class GuestsTable
                 IconColumn::make('is_attending')
                     ->boolean(),
                 IconColumn::make('has_answer')
-                    ->label('RSVP')
+                    ->label('has_answer')
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-clock')
