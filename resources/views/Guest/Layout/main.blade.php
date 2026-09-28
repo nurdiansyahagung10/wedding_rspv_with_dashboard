@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/png" href="storage/images/logo/icon.png">
     <meta name="description"
         content="Undangan Pernikahan Christy Audy Valentine & Gideon Mula Gabe Sitorus — 12 Desember 2026">
     <title>Christy & Gideon — Wedding Invitation</title>

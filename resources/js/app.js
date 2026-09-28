@@ -7,8 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let useYTFallback = false;
     const audioElement = document.getElementById("weddingAudio");
     const musicBtn = document.getElementById("musicBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
 
     // Fungsi Play Musik
     function playMusic() {
@@ -17,21 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (playPromise !== undefined) {
             playPromise.then(() => {
                 isAudioPlaying = true;
-                useYTFallback = false;
                 updateMusicButtonState(true);
-            }).catch(() => {
-                if (ytPlayer && typeof ytPlayer.playVideo === "function") {
-                    ytPlayer.playVideo();
-                    isAudioPlaying = true;
-                    useYTFallback = true;
-                    updateMusicButtonState(true);
-                }
-            });
-        } else if (ytPlayer && typeof ytPlayer.playVideo === "function") {
-            ytPlayer.playVideo();
-            isAudioPlaying = true;
-            useYTFallback = true;
-            updateMusicButtonState(true);
+            })
         }
     }
 
@@ -284,38 +269,38 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    if(document.getElementById('yesBtn')){
-    document.getElementById('yesBtn').addEventListener("click", function (e) {
-        document.getElementById('yesBtn').classList.add("btn-active-primary");
-        document.getElementById('noBtn').classList.remove("btn-active-primary");
-        is_attendingInput.value = "1";
-    });
+    if (document.getElementById('yesBtn')) {
+        document.getElementById('yesBtn').addEventListener("click", function (e) {
+            document.getElementById('yesBtn').classList.add("btn-active-primary");
+            document.getElementById('noBtn').classList.remove("btn-active-primary");
+            is_attendingInput.value = "1";
+        });
 
     }
 
-    if(document.getElementById('noBtn')){
-    document.getElementById('noBtn').addEventListener("click", function (e) {
-        document.getElementById('yesBtn').classList.remove("btn-active-primary");
-        document.getElementById('noBtn').classList.add("btn-active-primary");
-        is_attendingInput.value = "0";
-    });
+    if (document.getElementById('noBtn')) {
+        document.getElementById('noBtn').addEventListener("click", function (e) {
+            document.getElementById('yesBtn').classList.remove("btn-active-primary");
+            document.getElementById('noBtn').classList.add("btn-active-primary");
+            is_attendingInput.value = "0";
+        });
 
     }
 
-    if(document.getElementById("decreaseGuestBtn")){
-    document.getElementById("decreaseGuestBtn").addEventListener('click', function () {
-        guestCount = Math.max(1, Math.min(10, guestCount - 1));
-        document.getElementById("guestCount").textContent = guestCount;
-        document.getElementById("guestInput").value = guestCount;
-    });
+    if (document.getElementById("decreaseGuestBtn")) {
+        document.getElementById("decreaseGuestBtn").addEventListener('click', function () {
+            guestCount = Math.max(1, Math.min(10, guestCount - 1));
+            document.getElementById("guestCount").textContent = guestCount;
+            document.getElementById("guestInput").value = guestCount;
+        });
 
     }
-    if(document.getElementById("increaseGuestBtn")){
-     document.getElementById("increaseGuestBtn").addEventListener('click', function () {
-        guestCount = Math.max(1, Math.min(10, guestCount + 1));
-        document.getElementById("guestCount").textContent = guestCount;
-        document.getElementById("guestInput").value = guestCount;
-    });
+    if (document.getElementById("increaseGuestBtn")) {
+        document.getElementById("increaseGuestBtn").addEventListener('click', function () {
+            guestCount = Math.max(1, Math.min(10, guestCount + 1));
+            document.getElementById("guestCount").textContent = guestCount;
+            document.getElementById("guestInput").value = guestCount;
+        });
 
     }
 
