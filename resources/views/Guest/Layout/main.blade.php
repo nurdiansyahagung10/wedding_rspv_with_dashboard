@@ -10,8 +10,8 @@
     <title>Christy & Gideon — Wedding Invitation</title>
     @vite('resources/css/app.css')
     @vite('resources/js/app.js')
-    @include('Guest.Layout.Partials.top.css')
-    @include('Guest.Layout.Partials.top.js')
+    @include('Guest.Layout.Partials.Top.css')
+    @include('Guest.Layout.Partials.Top.js')
 </head>
 
 <body id="pageBody" class="bg-ivory text-ink font-sans m-0 overflow-hidden pb-16">
