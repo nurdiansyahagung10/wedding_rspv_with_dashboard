@@ -156,7 +156,7 @@
                             11.00 WIB – selesai<br><br>
                         </div>
                     </div>
-                
+
                 </div>
             </div>
         </div>
@@ -387,7 +387,7 @@
 
                     <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted mb-1">Kehadiran</label>
                     <div class="grid grid-cols-2 gap-3 mb-4">
-                        <input type="hidden" name="is_attending" id="is_attendingInput">
+                        <input type="hidden" name="is_attending" id="is_attendingInput" value="{{ $data->is_attending ? 1 : 0 }}">
                         <button type="button" id="yesBtn"
                             class="px-4 py-3 border {{ $data->is_attending ? 'btn-active-primary' : '' }} border-gold rounded-full cursor-pointer text-goldDark font-semibold text-xs tracking-wide hover:bg-gold/10 transition text-center">
                             Saya Akan Hadir
@@ -405,9 +405,9 @@
                             class="w-10 h-10 flex items-center justify-center border border-gold rounded-full text-goldDark text-lg hover:bg-gold hover:text-white transition">
                             −</button>
 
-                    <input type="hidden" name="amount_of_guest" id="guestInput" value="1">
+                    <input type="hidden" name="amount_of_guest" id="guestInput" value="{{ $data->amount_of_guest }}">
 
-                        <strong id="guestCount" class="font-serif text-4xl text-goldDark w-8 text-center font-normal">1</strong>
+                        <strong id="guestCount" class="font-serif text-4xl text-goldDark w-8 text-center font-normal">{{ $data->amount_of_guest ?? 1 }}</strong>
                         <button type="button" id="increaseGuestBtn"
                             class="w-10 h-10 flex items-center justify-center border border-gold rounded-full text-goldDark text-lg hover:bg-gold hover:text-white transition">
                             +</button>
@@ -417,7 +417,7 @@
                         Ucapan &amp; Doa <span class="text-xs normal-case text-inkMuted/70">(opsional)</span>
                     </label>
                     <textarea id="rsvpWish" name="wishes" rows="4" placeholder="Tuliskan ucapan untuk Christy & Gideon..."
-                        class="w-full px-3.5 py-3 border border-lineColor rounded-xl mb-4 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-gold focus:border-gold"></textarea>
+                        class="w-full px-3.5 py-3 border border-lineColor rounded-xl mb-4 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-gold focus:border-gold">{{ $data->wishes }}</textarea>
 
                     <button type="submit" id="sendrsvp"
                         class="w-full py-3.5 bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wider uppercase hover:opacity-90 shadow-sm transition">

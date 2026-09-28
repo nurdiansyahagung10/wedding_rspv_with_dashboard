@@ -18,17 +18,18 @@ class GuestRsvpTrendChart extends ChartWidget
         // Mengelompokkan data konfirmasi 7 hari terakhir
         $days = collect(range(6, 0))->map(fn ($i) => Carbon::today()->subDays($i)->format('Y-m-d'));
 
+
         $hadirCounts = [];
         $tidakHadirCounts = [];
 
         foreach ($days as $day) {
             $hadirCounts[] = Guest::where('has_answer', true)
-                ->where('is_attending', 'yes')
+                ->where('is_attending', true)
                 ->whereDate('updated_at', $day)
                 ->count();
 
             $tidakHadirCounts[] = Guest::where('has_answer', true)
-                ->where('is_attending', 'no')
+                ->where('is_attending', false)
                 ->whereDate('updated_at', $day)
                 ->count();
         }

@@ -14,12 +14,12 @@ class GuestStatsOverview extends BaseWidget
     {
         $totalUndangan = Guest::count();
         $sudahKonfirmasi = Guest::where('has_answer', true)->count();
-        $akanHadir = Guest::where('has_answer', true)->where('is_attending', 'yes')->count();
-        $tidakHadir = Guest::where('has_answer', true)->where('is_attending', 'no')->count();
-        
+        $akanHadir = Guest::where('has_answer', true)->where('is_attending', true)->count();
+        $tidakHadir = Guest::where('has_answer', true)->where('is_attending', false)->count();
+
         // Total pax fisik yang akan hadir
         $totalPax = Guest::where('has_answer', true)
-            ->where('is_attending', 'yes')
+            ->where('is_attending', true)
             ->sum('amount_of_guest');
 
         return [

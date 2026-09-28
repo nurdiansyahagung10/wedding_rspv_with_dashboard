@@ -22,15 +22,16 @@ class GuestCategoryBreakdownChart extends ChartWidget
 
         foreach ($categories as $cat) {
             // Jumlah undangan (kartu/kepala keluarga) yang hadir
-            $invitationCounts[] = Guest::where('is_attending', 'yes')
-                ->where('is_private_cat', $cat)
+            $invitationCounts[] = Guest::where('is_attending', true)
+                ->where('is_private_cat', ($cat == 'Nasional Tamu Pengantin' ? true :false))
                 ->count();
 
             // Total jumlah orang yang dibawa
-            $paxCounts[] = (int) Guest::where('is_attending', 'yes')
-                ->where('is_private_cat', $cat)
+            $paxCounts[] = (int) Guest::where('is_attending', true)
+                ->where('is_private_cat', ($cat == 'Nasional Tamu Pengantin' ? true :false))
                 ->sum('amount_of_guest');
         }
+
 
         return [
             'datasets' => [

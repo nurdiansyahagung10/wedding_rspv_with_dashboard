@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let guestCount = 1;
+    let guestCount = document.getElementById("guestInput").value;
     const target = new Date("2026-12-12T08:30:00+07:00").getTime();
 
     let isAudioPlaying = false;

@@ -11,8 +11,8 @@ class GuestLocationChart extends ChartWidget
 
     protected function getData(): array
     {
-        $tenda = Guest::where('is_attending', 'yes')->where('is_private_cat', true)->sum('amount_of_guest');
-        $lantaiDua = Guest::where('is_attending', 'yes')->where('is_private_cat', false)->sum('amount_of_guest');
+        $tenda = Guest::where('is_attending', true)->where('is_private_cat', true)->sum('amount_of_guest');
+        $lantaiDua = Guest::where('is_attending', true)->where('is_private_cat', false)->sum('amount_of_guest');
 
         return [
             'datasets' => [
