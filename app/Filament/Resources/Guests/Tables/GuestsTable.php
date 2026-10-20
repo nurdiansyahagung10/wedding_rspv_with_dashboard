@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Guests\Tables;
 
 use Filament\Actions\Action;
+use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -13,6 +14,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
 
 class GuestsTable
 {
@@ -70,6 +72,7 @@ class GuestsTable
                     ->state(function ($record) {
                             return env('APP_DOMAIN_URL') . '/'. $record->uuid;
                         })    ->copyable()
+                    ->toggleable(isToggledHiddenByDefault: false)
             ])
             ->filters([
                 TernaryFilter::make('has_answer')
@@ -97,8 +100,6 @@ class GuestsTable
                     ->label('Konfirmasi Hadir')
                     ->icon('heroicon-o-check-badge')
                     ->color('success')
-                    ->requiresConfirmation()
-                    ->modalHeading(fn ($record) => 'Konfirmasi kehadiran ' . $record->name . '?')
                     ->visible(fn ($record) => ! $record->is_checked_in)
                     ->action(fn ($record) => $record->update([
                         'is_checked_in' => true,
@@ -119,6 +120,24 @@ class GuestsTable
             ])
             ->bulkActions([
                 BulkActionGroup::make([
+                    BulkAction::make('bulkConfirmAttendance')
+                        ->label('Konfirmasi Hadir')
+                        ->icon('heroicon-o-check-badge')
+                        ->color('success')
+                        ->requiresConfirmation()
+                        ->modalHeading('Konfirmasi kehadiran tamu terpilih?')
+                        ->action(fn (Collection $records) => $records
+                            ->where('is_checked_in', false)
+                            ->each->update(['is_checked_in' => true, 'checked_in_at' => now()]))
+                        ->deselectRecordsAfterCompletion(),
+                    BulkAction::make('bulkCancelAttendance')
+                        ->label('Batalkan Check-in')
+                        ->icon('heroicon-o-x-mark')
+                        ->color('gray')
+                        ->requiresConfirmation()
+                        ->action(fn (Collection $records) => $records
+                            ->each->update(['is_checked_in' => false, 'checked_in_at' => null]))
+                        ->deselectRecordsAfterCompletion(),
                     DeleteBulkAction::make(),
                 ]),
             ]);
