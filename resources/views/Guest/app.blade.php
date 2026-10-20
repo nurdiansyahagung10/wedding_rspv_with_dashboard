@@ -159,8 +159,9 @@
                             11.00 WIB – selesai
                         </div>
                           <div class="mt-2.5 p-3 rounded-xl bg-ivory border border-goldBorder/60" id="adatLocationBox">
-                                <span class="text-[11px] text-inkMuted" id="adatLocationNote">Untuk keluarga besar KSP &
-                                    tamu umum nasional.</span>
+                                <span class="font-semibold text-goldDark block text-xs" id="adatLocationArea">Area:
+                                    Lantai 2 gedung</span>
+                                <span class="text-[11px] text-inkMuted" id="adatLocationNote">Khusus teman & kolega pengantin</span>
                             </div>
                     </div>
 
