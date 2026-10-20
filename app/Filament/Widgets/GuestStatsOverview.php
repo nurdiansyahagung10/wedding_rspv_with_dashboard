@@ -22,6 +22,9 @@ class GuestStatsOverview extends BaseWidget
             ->where('is_attending', true)
             ->sum('amount_of_guest');
 
+        $sudahCheckIn = Guest::where('is_checked_in', true)->count();
+        $paxCheckIn = Guest::where('is_checked_in', true)->sum('amount_of_guest');
+
         return [
             Stat::make('Total Undangan', $totalUndangan)
                 ->description("Sudah konfirmasi: {$sudahKonfirmasi}")
@@ -31,6 +34,11 @@ class GuestStatsOverview extends BaseWidget
                 ->description("Estimasi: {$totalPax} Pax/Orang")
                 ->color('success')
                 ->icon('heroicon-o-check-circle'),
+
+            Stat::make('Sudah Check-in', $sudahCheckIn)
+                ->description("{$paxCheckIn} Pax di lokasi dari {$akanHadir} konfirmasi hadir")
+                ->color('primary')
+                ->icon('heroicon-o-check-badge'),
 
             Stat::make('Tidak Hadir', $tidakHadir)
                 ->description('Berhalangan hadir')

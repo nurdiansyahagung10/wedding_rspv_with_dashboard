@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Guests\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -35,6 +36,17 @@ class GuestsTable
                     ->trueColor('success')
                     ->falseColor('gray'),
                     
+                IconColumn::make('is_checked_in')
+                    ->label('Check-in')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-badge')
+                    ->falseIcon('heroicon-o-minus-circle')
+                    ->trueColor('success')
+                    ->falseColor('gray')
+                    ->tooltip(fn ($record): ?string => $record->checked_in_at
+                        ? 'Hadir pada ' . $record->checked_in_at->format('d M Y H:i')
+                        : null),
+
                 TextColumn::make('amount_of_guest')
                     ->label('Pax')
                     ->alignCenter()
@@ -63,6 +75,9 @@ class GuestsTable
                 TernaryFilter::make('has_answer')
                     ->label('Sudah RSVP'),
 
+                TernaryFilter::make('is_checked_in')
+                    ->label('Sudah Check-in'),
+
                 SelectFilter::make('is_attending')
                     ->label('Status Hadir')
                     ->options([
@@ -78,6 +93,27 @@ class GuestsTable
                     ]),
             ])
             ->actions([
+                Action::make('confirmAttendance')
+                    ->label('Konfirmasi Hadir')
+                    ->icon('heroicon-o-check-badge')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->modalHeading(fn ($record) => 'Konfirmasi kehadiran ' . $record->name . '?')
+                    ->visible(fn ($record) => ! $record->is_checked_in)
+                    ->action(fn ($record) => $record->update([
+                        'is_checked_in' => true,
+                        'checked_in_at' => now(),
+                    ])),
+                Action::make('cancelAttendance')
+                    ->label('Batalkan Check-in')
+                    ->icon('heroicon-o-x-mark')
+                    ->color('gray')
+                    ->requiresConfirmation()
+                    ->visible(fn ($record) => $record->is_checked_in)
+                    ->action(fn ($record) => $record->update([
+                        'is_checked_in' => false,
+                        'checked_in_at' => null,
+                    ])),
                 EditAction::make(),
                 DeleteAction::make(),
             ])

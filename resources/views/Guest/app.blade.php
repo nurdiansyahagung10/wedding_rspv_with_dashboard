@@ -33,6 +33,7 @@
                         class="inline-block px-3 py-1 bg-gold/15 text-goldDark text-[10px] tracking-widest uppercase rounded-full font-semibold">
                         Nasional Umum
                     </span>
+
                 </div>
             </div>
 
@@ -142,6 +143,8 @@
                             <b class="text-ink">Sabtu, 12 Desember 2026</b><br>
                             08.30 WIB<br><br>
                         </div>
+
+
                     </div>
                 </div>
 
@@ -153,8 +156,12 @@
                         <h3 class="font-serif text-3xl mb-2 font-normal">Acara Adat Nikah</h3>
                         <div class="text-inkMuted text-sm leading-relaxed">
                             <b class="text-ink">Sabtu, 12 Desember 2026</b><br>
-                            11.00 WIB – selesai<br><br>
+                            11.00 WIB – selesai
                         </div>
+                          <div class="mt-2.5 p-3 rounded-xl bg-ivory border border-goldBorder/60" id="adatLocationBox">
+                                <span class="text-[11px] text-inkMuted" id="adatLocationNote">Untuk keluarga besar KSP &
+                                    tamu umum nasional.</span>
+                            </div>
                     </div>
 
                 </div>
@@ -314,7 +321,7 @@
             <div class="text-right">
                 <span class="font-medium text-ink block">{{ $data->guest_category ?? 'Nasional Umum' }}</span>
                 <span class="text-[11px] text-inkMuted">
-                    {{ $data->is_private_cat ? 'Area Tenda (Lantai Dasar)' : 'Lantai 2 Gedung' }}
+                    {{ $data->is_private_cat ? '' : 'Lantai 2 Gedung' }}
                 </span>
             </div>
         </div>
@@ -357,9 +364,6 @@
                                     <span class="text-xs font-semibold text-ink">Nasional Umum (Keluarga Besar KSP /
                                         Umum)</span>
                                 </div>
-                                <span class="text-[11px] text-inkMuted ml-6 mt-1">
-                                    Area Tenda (Lantai Dasar)
-                                </span>
                             </label>
                         @else
                             <label id="catLabelPengantin"
