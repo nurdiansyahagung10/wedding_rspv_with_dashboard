@@ -105,7 +105,7 @@
                 $title = urlencode('The Wedding of Christy & Gideon');
                 $dates = '20261212T030000Z/20261212T070000Z'; // Contoh: 12 Des 2026, 10:00 - 14:00 WIB (UTC: 03:00 - 07:00)
                 $details = urlencode('Pernikahan Christy & Gideon. Kehadiran dan doa restu Anda merupakan kehormatan bagi kami.');
-                $location = urlencode('Gedung Serba Guna Maduma Naramamora, Jl. Gempol No.47, Mekar Mulya, Kec. Panyileukan, Kota Bandung, Jawa Barat 40292');
+                $location = urlencode('Gedung Maduma Naramamora, Jl. Gempol No.47, Mekar Mulya, Kec. Panyileukan, Kota Bandung, Jawa Barat 40292');
                 $calendarUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text={$title}&dates={$dates}&details={$details}&location={$location}";
             @endphp
 
