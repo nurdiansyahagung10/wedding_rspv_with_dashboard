@@ -182,10 +182,10 @@
                 <div class="h-80 rounded-3xl bg-[#e9dfcf] border border-lineColor grid place-items-center text-center p-6">
                     <div class="max-w-md">
                         <div class="text-2xl text-gold mb-2">⌖</div>
-                        <h3 class="font-serif text-2xl font-normal mb-1">GKI Maulana Yusuf</h3>
+                        <h3 class="font-serif text-2xl font-normal mb-1">GKI Bakal Jemaat Kawaluyaan Maulana Yusuf</h3>
                         <p class="text-xs text-inkMuted leading-relaxed mb-4">Holy Matrimony</p>
                         <a class="inline-flex items-center justify-center px-5 py-2.5 bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wide hover:opacity-90 transition"
-                            target="_blank" href="https://maps.app.goo.gl/ziTphj4CxWHTH74m9">
+                            target="_blank" href="https://maps.app.goo.gl/n5VBST1XGXBAeiG29?g_st=iw">
                             Buka di Google Maps
                         </a>
                     </div>
