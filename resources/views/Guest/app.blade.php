@@ -103,9 +103,9 @@
             @php
                 // Format Google Calendar URL: YYYYMMDDTHHMMSSZ (UTC)
                 $title = urlencode('The Wedding of Christy & Gideon');
-                $dates = '20261025T030000Z/20261025T070000Z'; // Contoh: 25 Okt 2026, 10:00 - 14:00 WIB (UTC: 03:00 - 07:00)
+                $dates = '20261212T030000Z/20261212T070000Z'; // Contoh: 12 Des 2026, 10:00 - 14:00 WIB (UTC: 03:00 - 07:00)
                 $details = urlencode('Pernikahan Christy & Gideon. Kehadiran dan doa restu Anda merupakan kehormatan bagi kami.');
-                $location = urlencode('Nama Gedung / Tempat Acara, Kota');
+                $location = urlencode('Gedung Serba Guna Maduma Naramamora, Jl. Gempol No.47, Mekar Mulya, Kec. Panyileukan, Kota Bandung, Jawa Barat 40292');
                 $calendarUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text={$title}&dates={$dates}&details={$details}&location={$location}";
             @endphp
 
@@ -185,7 +185,7 @@
                         <h3 class="font-serif text-2xl font-normal mb-1">GKI Maulana Yusuf</h3>
                         <p class="text-xs text-inkMuted leading-relaxed mb-4">Holy Matrimony</p>
                         <a class="inline-flex items-center justify-center px-5 py-2.5 bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wide hover:opacity-90 transition"
-                            target="_blank" href="https://share.google/tMvZXZYjp9We7z9h7">
+                            target="_blank" href="https://maps.app.goo.gl/ziTphj4CxWHTH74m9">
                             Buka di Google Maps
                         </a>
                     </div>
@@ -197,7 +197,7 @@
                         <h3 class="font-serif text-2xl font-normal mb-1">Gedung Serba Guna Maduma Naramamora</h3>
                         <p class="text-xs text-inkMuted leading-relaxed mb-1">Acara Adat Nikah</p>
                         <a class="inline-flex items-center justify-center px-5 py-2.5 bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wide hover:opacity-90 transition"
-                            target="_blank" href="https://share.google/j0V7PsyMwFS6tsyyS">
+                            target="_blank" href="https://maps.app.goo.gl/Qxhi7cVTud6q2LsK8">
                             Buka di Google Maps
                         </a>
                     </div>
