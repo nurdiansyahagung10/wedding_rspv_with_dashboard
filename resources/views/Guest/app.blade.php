@@ -322,7 +322,7 @@
             <div class="text-right">
                 <span class="font-medium text-ink block">{{ $data->guest_category ?? 'Nasional Umum' }}</span>
                 <span class="text-[11px] text-inkMuted">
-                    {{ $data->is_private_cat ? '' : 'Lantai 2 Gedung' }}
+                    {{ $data->is_private_cat ? 'Lantai 2 Gedung' : '' }}
                 </span>
             </div>
         </div>
@@ -365,6 +365,9 @@
                                     <span class="text-xs font-semibold text-ink">Nasional Umum (Keluarga Besar KSP /
                                         Umum)</span>
                                 </div>
+                                  <span class="text-[11px] text-inkMuted ml-6 mt-1">
+                                    Lantai 2 Gedung
+                                </span>
                             </label>
                         @else
                             <label id="catLabelPengantin"
@@ -375,9 +378,7 @@
                                         class="text-xs font-semibold text-ink">Nasional Tamu Pengantin (Teman &amp;
                                         Kolega)</span>
                                 </div>
-                                <span class="text-[11px] text-inkMuted ml-6 mt-1">
-                                    Lantai 2 Gedung
-                                </span>
+
                             </label>
                         @endif
 
