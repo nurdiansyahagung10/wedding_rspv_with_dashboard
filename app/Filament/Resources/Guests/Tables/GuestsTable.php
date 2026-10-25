@@ -99,7 +99,7 @@ class GuestsTable
                 TextColumn::make('url')
                     ->label('URL')
                     ->state(function ($record) {
-                        return env('APP_DOMAIN_URL').'/'.$record->uuid;
+                        return (env('APP_DOMAIN_URL') ?: url('/')).'/'.$record->uuid;
                     })->copyable()
                     ->toggleable(isToggledHiddenByDefault: false),
             ])
