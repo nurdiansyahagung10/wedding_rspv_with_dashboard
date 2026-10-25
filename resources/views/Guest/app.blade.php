@@ -174,7 +174,7 @@
     <section id="lokasi" class="pb-20">
         <div class="max-w-6xl mx-auto px-5">
             <div class="text-center mb-10">
-                <h2 class="font-serif text-4xl sm:text-5xl my-2 font-bold text-ink">Lokasi</h2>
+                <h2 class="font-serif text-4xl sm:text-5xl my-2 text-ink">Lokasi</h2>
                 <div class="text-[11px] tracking-[0.28em] uppercase text-gold font-light">See You There</div>
             </div>
 
