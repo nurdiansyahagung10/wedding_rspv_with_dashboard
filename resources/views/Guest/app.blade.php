@@ -174,8 +174,8 @@
     <section id="lokasi" class="pb-20">
         <div class="max-w-6xl mx-auto px-5">
             <div class="text-center mb-10">
-                <div class="text-[11px] tracking-[0.28em] uppercase text-gold font-medium">Lokasi</div>
-                <h2 class="font-serif text-4xl sm:text-5xl my-2 font-normal">See You There</h2>
+                <h2 class="font-serif text-4xl sm:text-5xl my-2 font-bold text-ink">Lokasi</h2>
+                <div class="text-[11px] tracking-[0.28em] uppercase text-gold font-light">See You There</div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-7 items-stretch">
@@ -275,80 +275,85 @@
                 <div class="text-gold">✦</div>
             </div>
 
-            <form method="post" action="rsvp/guest/{{$data->id}}/update"
-                class="bg-paper border border-lineColor rounded-3xl p-7 sm:p-9 max-w-xl mx-auto shadow-[0_15px_40px_rgba(110,77,32,0.06)]">
+            <form method="post" action="{{ url('rsvp/guest/'.$data->id.'/update') }}" id="rsvpForm"
+                class="relative bg-paper border border-lineColor rounded-3xl p-7 sm:p-9 max-w-xl mx-auto shadow-[0_15px_40px_rgba(110,77,32,0.06)]">
                 @csrf
                 @method('PUT')
-              @if ($data->has_answer)
-    <div class="text-center mb-6">
-        <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gold/10 text-goldDark mb-3">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-        </span>
-        <h3 class="font-serif text-xl text-ink font-semibold">Konfirmasi Anda Telah Diterima</h3>
-        <p class="text-xs text-inkMuted mt-1">Terima kasih atas konfirmasi kehadiran yang telah Anda berikan.</p>
-    </div>
 
-    <!-- Ringkasan Data Konfirmasi -->
-    <div class="bg-stone-50 border border-lineColor rounded-2xl p-4 sm:p-5 mb-6 space-y-3.5 text-xs">
-        <div class="flex justify-between items-center pb-2.5 border-b border-lineColor/60">
-            <span class="text-inkMuted uppercase tracking-wider font-semibold">Nama Tamu</span>
-            <span class="font-medium text-ink">{{ $data->name }}</span>
-        </div>
+                <!-- Loader Overlay -->
+                <div id="rsvpLoader" class="hidden absolute inset-0 bg-paper/90 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center z-20 transition-all">
+                    <div class="w-9 h-9 border-3 border-gold/30 border-t-gold rounded-full animate-spin mb-3"></div>
+                    <span class="text-xs font-semibold text-goldDark tracking-wide">Menyimpan konfirmasi...</span>
+                </div>
 
-        <div class="flex justify-between items-center pb-2.5 border-b border-lineColor/60">
-            <span class="text-inkMuted uppercase tracking-wider font-semibold">Status Kehadiran</span>
-            @if ($data->is_attending === 'yes' || $data->is_attending === true || $data->is_attending)
-                <span class="px-2.5 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    Akan Hadir
-                </span>
-            @else
-                <span class="px-2.5 py-0.5 rounded-full font-semibold bg-stone-100 text-stone-600 border border-stone-200">
-                    Tidak Dapat Hadir
-                </span>
-            @endif
-        </div>
+                <!-- 1. Ringkasan Data Konfirmasi -->
+                <div id="rsvpSummary" class="{{ $data->has_answer ? '' : 'hidden' }}">
+                    <div class="text-center mb-6">
+                        <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gold/10 text-goldDark mb-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </span>
+                        <h3 class="font-serif text-xl text-ink font-semibold">Konfirmasi Anda Telah Diterima</h3>
+                        <p class="text-xs text-inkMuted mt-1">Terima kasih atas konfirmasi kehadiran yang telah Anda berikan.</p>
+                    </div>
 
-        @if ($data->is_attending === 'yes' || $data->is_attending === true || $data->is_attending)
-            <div class="flex justify-between items-center pb-2.5 border-b border-lineColor/60">
-                <span class="text-inkMuted uppercase tracking-wider font-semibold">Jumlah Hadir</span>
-                <span class="font-medium text-ink">{{ $data->amount_of_guest ?? 1 }} Orang</span>
-            </div>
-        @endif
+                    <!-- Ringkasan Data Konfirmasi -->
+                    <div class="bg-stone-50 border border-lineColor rounded-2xl p-4 sm:p-5 mb-6 space-y-3.5 text-xs">
+                        <div class="flex justify-between items-center pb-2.5 border-b border-lineColor/60">
+                            <span class="text-inkMuted uppercase tracking-wider font-semibold">Nama Tamu</span>
+                            <span class="font-medium text-ink">{{ $data->name }}</span>
+                        </div>
 
-        <div class="flex justify-between items-start pb-2.5 border-b border-lineColor/60">
-            <span class="text-inkMuted uppercase tracking-wider font-semibold">Kelompok &amp; Lokasi</span>
-            <div class="text-right">
-                <span class="font-medium text-ink block">{{ $data->is_private_cat ? 'Nasional Tamu Pengantin (Teman & Kolega)' : 'Nasional Umum Keluarga Besar KSP / Umum' }}</span>
-                <span class="text-[11px] text-inkMuted">
-                    {{ $data->is_private_cat ? 'Lantai 2 Gedung' : '' }}
-                </span>
-            </div>
-        </div>
+                        <div class="flex justify-between items-center pb-2.5 border-b border-lineColor/60">
+                            <span class="text-inkMuted uppercase tracking-wider font-semibold">Status Kehadiran</span>
+                            <span id="summaryAttendingBadge">
+                                @if ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true)
+                                    <span class="px-2.5 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        Akan Hadir
+                                    </span>
+                                @else
+                                    <span class="px-2.5 py-0.5 rounded-full font-semibold bg-stone-100 text-stone-600 border border-stone-200">
+                                        Tidak Dapat Hadir
+                                    </span>
+                                @endif
+                            </span>
+                        </div>
 
-        @if (!empty($data->wishes ?? $data->notes))
-            <div class="pt-1">
-                <span class="text-inkMuted uppercase tracking-wider font-semibold block mb-1.5">Ucapan &amp; Doa</span>
-                <p class="text-ink italic pb-10 bg-white flex p-3 rounded-xl border border-lineColor/60 whitespace-pre-line">
-                    <span>"{{ $data->wishes ?? $data->notes }}"</span>
-                </p>
-            </div>
-        @endif
-    </div>
+                        <div id="summaryGuestCountRow" class="flex justify-between items-center pb-2.5 border-b border-lineColor/60 {{ ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true) ? '' : 'hidden' }}">
+                            <span class="text-inkMuted uppercase tracking-wider font-semibold">Jumlah Hadir</span>
+                            <span class="font-medium text-ink" id="summaryGuestCount">{{ $data->amount_of_guest ?? 1 }} Orang</span>
+                        </div>
 
-    <!-- Tombol Opsi: Ubah Konfirmasi -->
-    <div class="w-full flex justify-center">
+                        <div class="flex justify-between items-start pb-2.5 border-b border-lineColor/60">
+                            <span class="text-inkMuted uppercase tracking-wider font-semibold">Kelompok &amp; Lokasi</span>
+                            <div class="text-right">
+                                <span class="font-medium text-ink block">{{ $data->is_private_cat ? 'Nasional Tamu Pengantin (Teman & Kolega)' : 'Nasional Umum Keluarga Besar KSP / Umum' }}</span>
+                                <span class="text-[11px] text-inkMuted">
+                                    {{ $data->is_private_cat ? 'Lantai 2 Gedung' : '' }}
+                                </span>
+                            </div>
+                        </div>
 
-    <button type="submit" name="has_answer_false" value="1"
-        class="inline-flex items-center justify-center px-5 py-2.5 bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wide hover:opacity-90 transition">
-        Ubah Konfirmasi Kehadiran
-    </button>
+                        <div id="summaryWishesRow" class="pt-1 {{ !empty($data->wishes ?? $data->notes) ? '' : 'hidden' }}">
+                            <span class="text-inkMuted uppercase tracking-wider font-semibold block mb-1.5">Ucapan &amp; Doa</span>
+                            <p class="text-ink italic pb-10 bg-white flex p-3 rounded-xl border border-lineColor/60 whitespace-pre-line">
+                                <span id="summaryWishesText">"{{ $data->wishes ?? $data->notes }}"</span>
+                            </p>
+                        </div>
+                    </div>
 
-    </div>
+                    <!-- Tombol Opsi: Ubah Konfirmasi -->
+                    <div class="w-full flex justify-center">
+                        <button type="button" id="btnEditRsvp"
+                            class="inline-flex items-center justify-center px-5 py-2.5 bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wide hover:opacity-90 transition">
+                            Ubah Konfirmasi Kehadiran
+                        </button>
+                    </div>
+                </div>
 
-@else
-
+                <!-- 2. Form Input Konfirmasi -->
+                <div id="rsvpFormContent" class="{{ $data->has_answer ? 'hidden' : '' }}">
                     <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted mb-1">
                         Kelompok Undangan &amp; Lokasi Resepsi
                     </label>
@@ -360,12 +365,12 @@
                             <label id="catLabelUmum"
                                 class="cursor-pointer flex flex-col p-3.5 rounded-xl border border-gold bg-gold/5 transition select-none">
                                 <div class="flex items-center gap-2.5">
-                                                                        <input type="radio" name="guestCategory" value="Nasional Umum" checked
+                                    <input type="radio" name="guestCategory" value="Nasional Umum" checked
                                         class="accent-gold w-4 h-4 cursor-pointer"> <span
                                         class="text-xs font-semibold text-ink">Nasional Tamu Pengantin (Teman &amp;
                                         Kolega)</span>
                                 </div>
-                                  <span class="text-[11px] text-inkMuted ml-6 mt-1">
+                                <span class="text-[11px] text-inkMuted ml-6 mt-1">
                                     Lantai 2 Gedung
                                 </span>
                             </label>
@@ -373,18 +378,13 @@
                             <label id="catLabelPengantin"
                                 class="cursor-pointer flex flex-col p-3.5 rounded-xl border border-gold bg-gold/5 transition select-none">
                                 <div class="flex items-center gap-2.5">
-
                                     <input type="radio" name="guestCategory" value="Nasional Umum" checked
                                         class="accent-gold w-4 h-4 cursor-pointer">
                                     <span class="text-xs font-semibold text-ink">Nasional Umum (Keluarga Besar KSP /
                                         Umum)</span>
-
                                 </div>
-
                             </label>
                         @endif
-
-
                     </div>
 
                     <label for="rsvpName"
@@ -395,30 +395,32 @@
 
                     <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted mb-1">Kehadiran</label>
                     <div class="grid grid-cols-2 gap-3 mb-4">
-                        <input type="hidden" name="is_attending" id="is_attendingInput" value="{{ $data->is_attending ? 1 : 0 }}">
+                        <input type="hidden" name="is_attending" id="is_attendingInput" value="{{ ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true) ? 1 : 0 }}">
                         <button type="button" id="yesBtn"
-                            class="px-4 py-3 border {{ $data->is_attending ? 'btn-active-primary' : '' }} border-gold rounded-full cursor-pointer text-goldDark font-semibold text-xs tracking-wide hover:bg-gold/10 transition text-center">
+                            class="px-4 py-3 border {{ ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true) ? 'btn-active-primary' : '' }} border-gold rounded-full cursor-pointer text-goldDark font-semibold text-xs tracking-wide hover:bg-gold/10 transition text-center">
                             Saya Akan Hadir
                         </button>
                         <button type="button" id="noBtn"
-                            class="px-4 py-3 border border-gold {{ !$data->is_attending ? 'btn-active-primary' : '' }} rounded-full cursor-pointer text-goldDark font-semibold text-xs tracking-wide hover:bg-gold/10 transition text-center">
+                            class="px-4 py-3 border border-gold {{ (!($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true)) ? 'btn-active-primary' : '' }} rounded-full cursor-pointer text-goldDark font-semibold text-xs tracking-wide hover:bg-gold/10 transition text-center">
                             Tidak Dapat Hadir
                         </button>
                     </div>
 
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted text-center">Jumlah
-                        Tamu</label>
-                    <div class="flex items-center justify-center gap-5 my-3">
-                        <button type="button" id="decreaseGuestBtn"
-                            class="w-10 h-10 flex items-center justify-center border border-gold rounded-full text-goldDark text-lg hover:bg-gold hover:text-white transition">
-                            −</button>
+                    <div id="guestCountSection" class="{{ (!($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true)) ? 'opacity-50 pointer-events-none' : '' }}">
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted text-center">Jumlah
+                            Tamu</label>
+                        <div class="flex items-center justify-center gap-5 my-3">
+                            <button type="button" id="decreaseGuestBtn"
+                                class="w-10 h-10 flex items-center justify-center border border-gold rounded-full text-goldDark text-lg hover:bg-gold hover:text-white transition">
+                                −</button>
 
-                    <input type="hidden" name="amount_of_guest" id="guestInput" value="{{ $data->amount_of_guest }}">
+                            <input type="hidden" name="amount_of_guest" id="guestInput" value="{{ $data->amount_of_guest ?? 1 }}">
 
-                        <strong id="guestCount" class="font-serif text-4xl text-goldDark w-8 text-center font-normal">{{ $data->amount_of_guest ?? 1 }}</strong>
-                        <button type="button" id="increaseGuestBtn"
-                            class="w-10 h-10 flex items-center justify-center border border-gold rounded-full text-goldDark text-lg hover:bg-gold hover:text-white transition">
-                            +</button>
+                            <strong id="guestCount" class="font-serif text-4xl text-goldDark w-8 text-center font-normal">{{ $data->amount_of_guest ?? 1 }}</strong>
+                            <button type="button" id="increaseGuestBtn"
+                                class="w-10 h-10 flex items-center justify-center border border-gold rounded-full text-goldDark text-lg hover:bg-gold hover:text-white transition">
+                                +</button>
+                        </div>
                     </div>
 
                     <label for="rsvpWish" class="block text-xs font-semibold uppercase tracking-wider text-inkMuted mb-1">
@@ -428,12 +430,12 @@
                         class="w-full px-3.5 py-3 border border-lineColor rounded-xl mb-4 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-gold focus:border-gold">{{ $data->wishes }}</textarea>
 
                     <button type="submit" id="sendrsvp"
-                        class="w-full py-3.5 bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wider uppercase hover:opacity-90 shadow-sm transition">
-                        Kirim Konfirmasi
+                        class="w-full py-3.5 bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wider uppercase hover:opacity-90 shadow-sm transition flex items-center justify-center gap-2">
+                        <span>Kirim Konfirmasi</span>
                     </button>
-                    <p id="rsvpError" class="text-xs text-[#9b4d35] mt-3 text-center"></p>
-
-                @endif
+                    <p id="rsvpError" class="text-xs text-[#9b4d35] mt-3 text-center hidden"></p>
+                </div>
+            </form>
 
             </form>
         </div>

@@ -23,18 +23,37 @@ class GuestController extends Controller
     public function update(Request $request,$id){
         $data = $this->model::find($id);
         if($data == null){
+            if ($request->wantsJson() || $request->ajax()) {
+                return response()->json(['success' => false, 'message' => 'Data tamu tidak ditemukan'], 404);
+            }
             abort(404);
         }
         if($request->has_answer_false){
-        $data->has_answer = false;
-
+            $data->has_answer = false;
         }else{
             $data->has_answer = true;
             $data->is_attending = $request->is_attending;
             $data->amount_of_guest = $request->amount_of_guest;
-            $data->wishes = trim($request->wishes);
+            $data->wishes = trim($request->wishes ?? '');
         }
         $data->save();
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Konfirmasi berhasil disimpan',
+                'data' => [
+                    'id' => $data->id,
+                    'name' => $data->name,
+                    'has_answer' => (bool) $data->has_answer,
+                    'is_attending' => (bool) ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true),
+                    'amount_of_guest' => (int) ($data->amount_of_guest ?? 1),
+                    'is_private_cat' => (bool) $data->is_private_cat,
+                    'wishes' => (string) ($data->wishes ?? ''),
+                ],
+            ]);
+        }
+
         return redirect()->route('Guest.index', ['uuid' => $data->uuid]);
     }
 }

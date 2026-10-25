@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let guestCount = document.getElementById("guestInput")?.value;
+    let guestCount = parseInt(document.getElementById("guestInput")?.value || "1", 10);
     const target = new Date("2026-12-12T08:30:00+07:00").getTime();
 
     let isAudioPlaying = false;
@@ -269,22 +269,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    if (document.getElementById('yesBtn')) {
-        document.getElementById('yesBtn').addEventListener("click", function (e) {
-            document.getElementById('yesBtn').classList.add("btn-active-primary");
-            document.getElementById('noBtn').classList.remove("btn-active-primary");
-            is_attendingInput.value = "1";
-        });
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const guestCountSection = document.getElementById('guestCountSection');
 
+    if (yesBtn) {
+        yesBtn.addEventListener("click", function (e) {
+            yesBtn.classList.add("btn-active-primary");
+            if (noBtn) noBtn.classList.remove("btn-active-primary");
+            if (is_attendingInput) is_attendingInput.value = "1";
+            if (guestCountSection) guestCountSection.classList.remove("opacity-50", "pointer-events-none");
+        });
     }
 
-    if (document.getElementById('noBtn')) {
-        document.getElementById('noBtn').addEventListener("click", function (e) {
-            document.getElementById('yesBtn').classList.remove("btn-active-primary");
-            document.getElementById('noBtn').classList.add("btn-active-primary");
-            is_attendingInput.value = "0";
+    if (noBtn) {
+        noBtn.addEventListener("click", function (e) {
+            if (yesBtn) yesBtn.classList.remove("btn-active-primary");
+            noBtn.classList.add("btn-active-primary");
+            if (is_attendingInput) is_attendingInput.value = "0";
+            if (guestCountSection) guestCountSection.classList.add("opacity-50", "pointer-events-none");
         });
-
     }
 
     if (document.getElementById("decreaseGuestBtn")) {
@@ -293,7 +297,6 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("guestCount").textContent = guestCount;
             document.getElementById("guestInput").value = guestCount;
         });
-
     }
     if (document.getElementById("increaseGuestBtn")) {
         document.getElementById("increaseGuestBtn").addEventListener('click', function () {
@@ -301,7 +304,135 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("guestCount").textContent = guestCount;
             document.getElementById("guestInput").value = guestCount;
         });
+    }
 
+    // RSVP Form AJAX Submission
+    const rsvpForm = document.getElementById("rsvpForm");
+    const rsvpLoader = document.getElementById("rsvpLoader");
+    const rsvpSummary = document.getElementById("rsvpSummary");
+    const rsvpFormContent = document.getElementById("rsvpFormContent");
+    const rsvpError = document.getElementById("rsvpError");
+    const sendrsvpBtn = document.getElementById("sendrsvp");
+    const btnEditRsvp = document.getElementById("btnEditRsvp");
+
+    if (rsvpForm) {
+        rsvpForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            if (rsvpLoader) rsvpLoader.classList.remove("hidden");
+            if (sendrsvpBtn) sendrsvpBtn.disabled = true;
+            if (rsvpError) {
+                rsvpError.classList.add("hidden");
+                rsvpError.textContent = "";
+            }
+
+            try {
+                const formData = new FormData(rsvpForm);
+                formData.set('_method', 'PUT');
+
+                const response = await fetch(rsvpForm.action, {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "X-Requested-With": "XMLHttpRequest"
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.message || "Gagal menyimpan konfirmasi.");
+                }
+
+                // Update summary UI values
+                const isAttending = result.data.is_attending;
+                const badgeEl = document.getElementById("summaryAttendingBadge");
+                if (badgeEl) {
+                    if (isAttending) {
+                        badgeEl.innerHTML = `<span class="px-2.5 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Akan Hadir</span>`;
+                    } else {
+                        badgeEl.innerHTML = `<span class="px-2.5 py-0.5 rounded-full font-semibold bg-stone-100 text-stone-600 border border-stone-200">Tidak Dapat Hadir</span>`;
+                    }
+                }
+
+                const guestCountRow = document.getElementById("summaryGuestCountRow");
+                const summaryGuestCount = document.getElementById("summaryGuestCount");
+                if (guestCountRow && summaryGuestCount) {
+                    if (isAttending) {
+                        summaryGuestCount.textContent = (result.data.amount_of_guest || 1) + " Orang";
+                        guestCountRow.classList.remove("hidden");
+                    } else {
+                        guestCountRow.classList.add("hidden");
+                    }
+                }
+
+                const wishesRow = document.getElementById("summaryWishesRow");
+                const wishesText = document.getElementById("summaryWishesText");
+                if (wishesRow && wishesText) {
+                    const wishesVal = (result.data.wishes || "").trim();
+                    if (wishesVal) {
+                        wishesText.textContent = `"${wishesVal}"`;
+                        wishesRow.classList.remove("hidden");
+                    } else {
+                        wishesRow.classList.add("hidden");
+                    }
+                }
+
+                // Switch to summary view
+                if (rsvpFormContent) rsvpFormContent.classList.add("hidden");
+                if (rsvpSummary) rsvpSummary.classList.remove("hidden");
+
+            } catch (err) {
+                if (rsvpError) {
+                    rsvpError.textContent = err.message || "Terjadi kesalahan saat menyimpan konfirmasi. Silakan coba lagi.";
+                    rsvpError.classList.remove("hidden");
+                }
+            } finally {
+                if (rsvpLoader) rsvpLoader.classList.add("hidden");
+                if (sendrsvpBtn) sendrsvpBtn.disabled = false;
+            }
+        });
+    }
+
+    if (btnEditRsvp && rsvpForm) {
+        btnEditRsvp.addEventListener("click", async function () {
+            if (rsvpLoader) rsvpLoader.classList.remove("hidden");
+            btnEditRsvp.disabled = true;
+
+            try {
+                const csrfToken = rsvpForm.querySelector('input[name="_token"]')?.value || "";
+                const formData = new FormData();
+                formData.set('_token', csrfToken);
+                formData.set('_method', 'PUT');
+                formData.set('has_answer_false', '1');
+
+                const response = await fetch(rsvpForm.action, {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json",
+                        "X-Requested-With": "XMLHttpRequest"
+                    },
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (!response.ok || !result.success) {
+                    throw new Error(result.message || "Gagal membuka form konfirmasi.");
+                }
+
+                // Switch back to form view
+                if (rsvpSummary) rsvpSummary.classList.add("hidden");
+                if (rsvpFormContent) rsvpFormContent.classList.remove("hidden");
+
+            } catch (err) {
+                alert(err.message || "Terjadi kesalahan. Silakan coba lagi.");
+            } finally {
+                if (rsvpLoader) rsvpLoader.classList.add("hidden");
+                btnEditRsvp.disabled = false;
+            }
+        });
     }
 
 
