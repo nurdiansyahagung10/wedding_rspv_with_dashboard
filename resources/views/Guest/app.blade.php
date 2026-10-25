@@ -320,7 +320,7 @@
         <div class="flex justify-between items-start pb-2.5 border-b border-lineColor/60">
             <span class="text-inkMuted uppercase tracking-wider font-semibold">Kelompok &amp; Lokasi</span>
             <div class="text-right">
-                <span class="font-medium text-ink block">{{ $data->guest_category ?? 'Nasional Umum' }}</span>
+                <span class="font-medium text-ink block">{{ $data->is_private_cat ? 'Nasional Tamu Pengantin (Teman & Kolega)' : 'Nasional Umum Keluarga Besar KSP / Umum' }}</span>
                 <span class="text-[11px] text-inkMuted">
                     {{ $data->is_private_cat ? 'Lantai 2 Gedung' : '' }}
                 </span>
@@ -360,10 +360,10 @@
                             <label id="catLabelUmum"
                                 class="cursor-pointer flex flex-col p-3.5 rounded-xl border border-gold bg-gold/5 transition select-none">
                                 <div class="flex items-center gap-2.5">
-                                    <input type="radio" name="guestCategory" value="Nasional Umum" checked
-                                        class="accent-gold w-4 h-4 cursor-pointer">
-                                    <span class="text-xs font-semibold text-ink">Nasional Umum (Keluarga Besar KSP /
-                                        Umum)</span>
+                                                                        <input type="radio" name="guestCategory" value="Nasional Umum" checked
+                                        class="accent-gold w-4 h-4 cursor-pointer"> <span
+                                        class="text-xs font-semibold text-ink">Nasional Tamu Pengantin (Teman &amp;
+                                        Kolega)</span>
                                 </div>
                                   <span class="text-[11px] text-inkMuted ml-6 mt-1">
                                     Lantai 2 Gedung
@@ -373,10 +373,12 @@
                             <label id="catLabelPengantin"
                                 class="cursor-pointer flex flex-col p-3.5 rounded-xl border border-gold bg-gold/5 transition select-none">
                                 <div class="flex items-center gap-2.5">
+
                                     <input type="radio" name="guestCategory" value="Nasional Umum" checked
-                                        class="accent-gold w-4 h-4 cursor-pointer"> <span
-                                        class="text-xs font-semibold text-ink">Nasional Tamu Pengantin (Teman &amp;
-                                        Kolega)</span>
+                                        class="accent-gold w-4 h-4 cursor-pointer">
+                                    <span class="text-xs font-semibold text-ink">Nasional Umum (Keluarga Besar KSP /
+                                        Umum)</span>
+
                                 </div>
 
                             </label>

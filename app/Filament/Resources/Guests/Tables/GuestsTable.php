@@ -66,6 +66,36 @@ class GuestsTable
                     ->tooltip(fn ($record): ?string => $record->wishes)
                     ->toggleable(isToggledHiddenByDefault: false)->default('-'),
 
+                TextColumn::make('copy_invitation')
+                    ->label('Pesan Undangan')
+                    ->state(fn () => 'Salin Undangan')
+                    ->badge()
+                    ->color('success')
+                    ->icon('heroicon-o-clipboard-document-check')
+                    ->copyable()
+                    ->copyableState(function ($record) {
+                        $domain = env('APP_DOMAIN_URL') ?: url('/');
+                        $url = rtrim($domain, '/').'/'.$record->uuid;
+
+                        return "Salam Damai Sejahtera.\n\n"
+                            ."Yth. *{$record->name}*\n\n"
+                            ."Kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat untuk dapat hadir merayakan kebahagiaan pernikahan kami yang akan dilaksanakan pada:\n\n"
+                            ."📅 : Sabtu, 12 Desember 2026\n"
+                            ."⏰ : *09.00 - 10.00* WIB ( Pemberkatan )\n"
+                            ."📍 : GKI BaJem Kawaluyaan Maulana Yusuf\n"
+                            ."⏰ : 10.00 WIB - Selesai ( Resepsi Adat )\n"
+                            ."📍 : GSG Maduma Naramamora\n\n"
+                            ."Panduan informasi dan lokasi acara lengkap dapat mengunjungi link berikut:\n\n"
+                            ."{$url}\n\n"
+                            ."Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i, berkenan untuk hadir merayakan momen bahagia kami dan memberikan doa restu.\n\n"
+                            ."Mohon maaf perihal undangan hanya dibagikan melalui pesan ini. Terima kasih atas perhatiannya.\n\n"
+                            ."Kami yang berbahagia,\n"
+                            ."*Christy & Gideon*";
+                    })
+                    ->copyMessage('Pesan undangan berhasil disalin')
+                    ->copyMessageDuration(2000)
+                    ->toggleable(isToggledHiddenByDefault: false),
+
                 TextColumn::make('url')
                     ->label('URL')
                     ->state(function ($record) {
