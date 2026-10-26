@@ -18,10 +18,12 @@ class GuestForm
                     ->required(),
                 Toggle::make('is_private_cat')->columnSpanFull()
                     ->disabled(fn () => auth()->user()->isStaff()),
-                Toggle::make('is_attending')->columnSpanFull(),
+                Toggle::make('is_attending')->columnSpanFull()
+                    ->disabled(fn () => auth()->user()->isStaff()),
                 Toggle::make('has_answer')->columnSpanFull(),
                 TextInput::make('amount_of_guest')->columnSpanFull()
                     ->numeric()
+                    ->disabled(fn () => auth()->user()->isStaff())
                     ->default(1),
                 Textarea::make('wishes')
                     ->columnSpanFull(),

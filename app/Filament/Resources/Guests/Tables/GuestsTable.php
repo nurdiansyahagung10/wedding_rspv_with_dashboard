@@ -147,7 +147,7 @@ class GuestsTable
                     'checked_in_at' => null,
                   ])),
               EditAction::make(),
-              DeleteAction::make(),
+              DeleteAction::make()->visible(fn () => ! auth()->user()->isStaff()),
           ])
             ->bulkActions([
               BulkActionGroup::make([
@@ -169,7 +169,7 @@ class GuestsTable
                     ->action(fn (Collection $records) => $records
                         ->each->update(['is_checked_in' => false, 'checked_in_at' => null]))
                     ->deselectRecordsAfterCompletion(),
-                  DeleteBulkAction::make(),
+                  DeleteBulkAction::make()->visible(fn () => ! auth()->user()->isStaff()),
               ]),
           ]);
     }
