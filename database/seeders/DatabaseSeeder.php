@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
         User::updateOrCreate(
             ['email' => 'staff@gmail.com'],
-            ['name' => 'Staff', 'password' => Hash::make('password'), 'role' => 'staff'],
+            ['name' => 'Staff', 'password' => Hash::make('wordpss213'), 'role' => 'staff'],
         );
     }
 }
