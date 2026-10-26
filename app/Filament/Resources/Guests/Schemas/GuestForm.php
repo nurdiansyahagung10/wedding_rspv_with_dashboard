@@ -14,8 +14,10 @@ class GuestForm
         return $schema
             ->components([
                 TextInput::make('name')->columnSpanFull()
+                    ->disabled(fn () => auth()->user()->isStaff())
                     ->required(),
-                Toggle::make('is_private_cat')->columnSpanFull(),
+                Toggle::make('is_private_cat')->columnSpanFull()
+                    ->disabled(fn () => auth()->user()->isStaff()),
                 Toggle::make('is_attending')->columnSpanFull(),
                 Toggle::make('has_answer')->columnSpanFull(),
                 TextInput::make('amount_of_guest')->columnSpanFull()

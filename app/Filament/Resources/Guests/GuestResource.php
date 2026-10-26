@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
 
 class GuestResource extends Resource
 {
@@ -25,6 +26,21 @@ class GuestResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'Guest';
+
+    public static function canCreate(): bool
+    {
+        return ! auth()->user()?->isStaff();
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return ! auth()->user()?->isStaff();
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        return ! auth()->user()?->isStaff();
+    }
 
     public static function form(Schema $schema): Schema
     {

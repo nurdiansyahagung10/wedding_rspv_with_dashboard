@@ -94,6 +94,7 @@ class GuestsTable
                     })
                     ->copyMessage('Pesan undangan berhasil disalin')
                     ->copyMessageDuration(2000)
+                    ->visible(fn () => ! auth()->user()->isStaff())
                     ->toggleable(isToggledHiddenByDefault: false),
 
                 TextColumn::make('url')
@@ -101,6 +102,7 @@ class GuestsTable
                     ->state(function ($record) {
                         return (env('APP_DOMAIN_URL') ?: url('/')).'/'.$record->uuid;
                     })->copyable()
+                    ->visible(fn () => ! auth()->user()->isStaff())
                     ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([

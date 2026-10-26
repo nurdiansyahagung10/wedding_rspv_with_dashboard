@@ -23,5 +23,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
             'password' => Hash::make('password'),
         ]);
+
+        User::updateOrCreate(
+            ['email' => 'staff@gmail.com'],
+            ['name' => 'Staff', 'password' => Hash::make('password'), 'role' => 'staff'],
+        );
     }
 }
