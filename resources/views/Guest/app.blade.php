@@ -444,20 +444,22 @@
     <!-- Ucapan & Doa dari tamu lain -->
     @if ($wishes->isNotEmpty())
     <section id="wishes" class="pb-20">
-        <div class="max-w-2xl mx-auto px-5">
+        <div class="max-w-xl mx-auto px-5">
             <div class="text-center mb-8">
-                <div class="text-[11px] tracking-[0.28em] uppercase text-gold font-medium">Wishes</div>
-                <h2 class="font-serif text-4xl sm:text-5xl my-2 font-normal">Ucapan &amp; Doa</h2>
-                <div class="text-gold">✦</div>
+                <h2 class="font-serif text-4xl sm:text-5xl font-normal text-ink">Ucapan &amp; Doa</h2>
+                <p class="text-sm text-inkMuted mt-2">{{ $wishes->count() }} pesan hangat dari keluarga dan sahabat</p>
             </div>
-            <div class="space-y-3 max-h-[28rem] overflow-y-auto pr-1">
+            <ul class="max-h-[30rem] overflow-y-auto overscroll-contain pr-2 divide-y divide-lineColor border-y border-lineColor focus:outline-none focus-visible:ring-1 focus-visible:ring-gold" tabindex="0" aria-label="Daftar ucapan dan doa">
                 @foreach ($wishes as $wish)
-                <div class="bg-paper border border-lineColor rounded-2xl p-5">
-                    <div class="font-semibold text-sm text-goldDark">{{ $wish->name }}</div>
-                    <p class="text-sm text-inkMuted mt-1 whitespace-pre-line">{{ $wish->wishes }}</p>
-                </div>
+                <li class="flex gap-4 py-5">
+                    <span aria-hidden="true" class="shrink-0 w-10 h-10 rounded-full bg-gold/10 text-goldDark font-serif text-lg flex items-center justify-center">{{ mb_strtoupper(mb_substr($wish->name, 0, 1)) }}</span>
+                    <div class="min-w-0">
+                        <p class="font-serif text-base leading-relaxed text-ink whitespace-pre-line break-words">{{ $wish->wishes }}</p>
+                        <p class="text-xs font-semibold tracking-wide text-goldDark mt-2">{{ $wish->name }}</p>
+                    </div>
+                </li>
                 @endforeach
-            </div>
+            </ul>
         </div>
     </section>
     @endif
