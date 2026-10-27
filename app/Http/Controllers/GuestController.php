@@ -17,7 +17,10 @@ class GuestController extends Controller
         if($data == null){
             abort(404);
         }
-        return view('Guest.app', ['data' => $data]);
+        $wishes = $this->model::where('has_answer', true)
+            ->whereNotNull('wishes')->where('wishes', '!=', '')
+            ->latest('updated_at')->limit(50)->get(['name', 'wishes']);
+        return view('Guest.app', ['data' => $data, 'wishes' => $wishes]);
     }
 
     public function update(Request $request,$id){

@@ -441,6 +441,27 @@
         </div>
     </section>
 
+    <!-- Ucapan & Doa dari tamu lain -->
+    @if ($wishes->isNotEmpty())
+    <section id="wishes" class="pb-20">
+        <div class="max-w-2xl mx-auto px-5">
+            <div class="text-center mb-8">
+                <div class="text-[11px] tracking-[0.28em] uppercase text-gold font-medium">Wishes</div>
+                <h2 class="font-serif text-4xl sm:text-5xl my-2 font-normal">Ucapan &amp; Doa</h2>
+                <div class="text-gold">✦</div>
+            </div>
+            <div class="space-y-3 max-h-[28rem] overflow-y-auto pr-1">
+                @foreach ($wishes as $wish)
+                <div class="bg-paper border border-lineColor rounded-2xl p-5">
+                    <div class="font-semibold text-sm text-goldDark">{{ $wish->name }}</div>
+                    <p class="text-sm text-inkMuted mt-1 whitespace-pre-line">{{ $wish->wishes }}</p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
     <!-- Wedding Gift (Amplop Digital) -->
     <section id="gift" class="pb-20">
         <div class="max-w-6xl mx-auto px-5">

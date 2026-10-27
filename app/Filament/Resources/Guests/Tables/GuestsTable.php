@@ -83,7 +83,7 @@ class GuestsTable
                             ."📅 : Sabtu, 12 Desember 2026\n"
                             ."⏰ : *09.00 - 10.00* WIB ( Pemberkatan )\n"
                             ."📍 : GKI BaJem Kawaluyaan Maulana Yusuf\n"
-                            ."⏰ : 10.00 WIB - Selesai ( Resepsi Adat )\n"
+                            ."⏰ : 10.00 WIB - ( Resepsi Adat )\n"
                             ."📍 : GSG Maduma Naramamora\n\n"
                             ."Panduan informasi dan lokasi acara lengkap dapat mengunjungi link berikut:\n\n"
                             ."{$url}\n\n"
