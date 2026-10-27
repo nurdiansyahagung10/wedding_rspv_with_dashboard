@@ -447,19 +447,20 @@
         <div class="max-w-xl mx-auto px-5">
             <div class="text-center mb-8">
                 <h2 class="font-serif text-4xl sm:text-5xl font-normal text-ink">Ucapan &amp; Doa</h2>
-                <p class="text-sm text-inkMuted mt-2">{{ $wishes->count() }} pesan hangat dari keluarga dan sahabat</p>
+                <p class="text-sm text-inkMuted mt-2">{{ $wishTotal }} pesan hangat dari keluarga dan sahabat</p>
             </div>
-            <ul class="max-h-[30rem] overflow-y-auto overscroll-contain pr-2 divide-y divide-lineColor border-y border-lineColor focus:outline-none focus-visible:ring-1 focus-visible:ring-gold" tabindex="0" aria-label="Daftar ucapan dan doa">
-                @foreach ($wishes as $wish)
-                <li class="flex gap-4 py-5">
-                    <span aria-hidden="true" class="shrink-0 w-10 h-10 rounded-full bg-gold/10 text-goldDark font-serif text-lg flex items-center justify-center">{{ mb_strtoupper(mb_substr($wish->name, 0, 1)) }}</span>
-                    <div class="min-w-0">
-                        <p class="font-serif text-base leading-relaxed text-ink whitespace-pre-line break-words">{{ $wish->wishes }}</p>
-                        <p class="text-xs font-semibold tracking-wide text-goldDark mt-2">{{ $wish->name }}</p>
-                    </div>
-                </li>
-                @endforeach
+            <ul id="wishesList" class="divide-y divide-lineColor border-y border-lineColor">
+                @include('Guest.wishes-items', ['wishes' => $wishes])
             </ul>
+            @if ($wishes->hasMorePages())
+            <div class="text-center mt-6">
+                <button type="button" id="wishesMore" data-url="{{ $wishes->nextPageUrl() }}"
+                    class="px-6 py-2.5 border border-gold rounded-full text-goldDark font-semibold text-xs tracking-wide hover:bg-gold/10 transition disabled:opacity-50">
+                    Muat lebih banyak
+                </button>
+                <p id="wishesError" class="text-xs text-[#9b4d35] mt-3 hidden">Gagal memuat, coba lagi.</p>
+            </div>
+            @endif
         </div>
     </section>
     @endif

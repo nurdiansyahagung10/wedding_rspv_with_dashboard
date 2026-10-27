@@ -437,6 +437,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+    const wishesMore = document.getElementById("wishesMore");
+    if (wishesMore) {
+        wishesMore.addEventListener("click", async () => {
+            const err = document.getElementById("wishesError");
+            wishesMore.disabled = true;
+            err.classList.add("hidden");
+            try {
+                const res = await fetch(wishesMore.dataset.url, { headers: { Accept: "application/json" } });
+                if (!res.ok) throw new Error();
+                const { html, next } = await res.json();
+                document.getElementById("wishesList").insertAdjacentHTML("beforeend", html);
+                if (next) {
+                    wishesMore.dataset.url = next;
+                    wishesMore.disabled = false;
+                } else {
+                    wishesMore.parentElement.remove();
+                }
+            } catch {
+                err.classList.remove("hidden");
+                wishesMore.disabled = false;
+            }
+        });
+    }
+
     document.getElementById('copyRekAccount1').addEventListener('click', function () {
         copyAccount('7771753322', 'copyMsg1')
     });

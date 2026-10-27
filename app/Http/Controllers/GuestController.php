@@ -17,10 +17,23 @@ class GuestController extends Controller
         if($data == null){
             abort(404);
         }
-        $wishes = $this->model::where('has_answer', true)
+        $wishes = $this->wishesQuery()->simplePaginate(10)->withPath(route('Guest.wishes'));
+        return view('Guest.app', ['data' => $data, 'wishes' => $wishes, 'wishTotal' => $this->wishesQuery()->count()]);
+    }
+
+    private function wishesQuery(){
+        return $this->model::where('has_answer', true)
             ->whereNotNull('wishes')->where('wishes', '!=', '')
-            ->latest('updated_at')->limit(50)->get(['name', 'wishes']);
-        return view('Guest.app', ['data' => $data, 'wishes' => $wishes]);
+            ->orderByDesc('updated_at')->orderByDesc('id')
+            ->select(['id', 'name', 'wishes']);
+    }
+
+    public function wishes(){
+        $wishes = $this->wishesQuery()->simplePaginate(10);
+        return response()->json([
+            'html' => view('Guest.wishes-items', ['wishes' => $wishes])->render(),
+            'next' => $wishes->nextPageUrl(),
+        ]);
     }
 
     public function update(Request $request,$id){
