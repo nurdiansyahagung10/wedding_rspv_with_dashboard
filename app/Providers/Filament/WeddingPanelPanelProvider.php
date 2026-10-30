@@ -2,10 +2,10 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Widgets\GuestLocationChart;
-use App\Filament\Widgets\GuestStatsOverview;
 use App\Filament\Widgets\GuestCategoryBreakdownChart;
+use App\Filament\Widgets\GuestLocationChart;
 use App\Filament\Widgets\GuestRsvpTrendChart;
+use App\Filament\Widgets\GuestStatsOverview;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -14,8 +14,6 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -42,10 +40,10 @@ class WeddingPanelPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-               GuestStatsOverview::class,
-            GuestLocationChart::class,
-            GuestCategoryBreakdownChart::class,
-            GuestRsvpTrendChart::class,
+                GuestStatsOverview::class,
+                GuestLocationChart::class,
+                GuestCategoryBreakdownChart::class,
+                GuestRsvpTrendChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

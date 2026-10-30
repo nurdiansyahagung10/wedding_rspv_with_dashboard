@@ -29,17 +29,17 @@ class GuestResource extends Resource
 
     public static function canCreate(): bool
     {
-        return ! auth()->user()?->isStaff();
+        return !auth()->user()?->isStaff();
     }
 
     public static function canDelete(Model $record): bool
     {
-        return ! auth()->user()?->isStaff();
+        return !auth()->user()?->isStaff();
     }
 
     public static function canDeleteAny(): bool
     {
-        return ! auth()->user()?->isStaff();
+        return !auth()->user()?->isStaff();
     }
 
     public static function form(Schema $schema): Schema
