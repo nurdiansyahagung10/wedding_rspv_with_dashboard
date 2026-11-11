@@ -156,7 +156,7 @@
                         <h3 class="font-serif text-3xl mb-2 font-normal">Acara Adat Nikah</h3>
                         <div class="text-inkMuted text-sm leading-relaxed">
                             <b class="text-ink">Sabtu, 12 Desember 2026</b><br>
-                            11.00 WIB – selesai
+                            10.00 WIB – selesai
                         </div>
                           <div class="mt-2.5 p-3 rounded-xl bg-ivory border border-goldBorder/60" id="adatLocationBox">
                                 <span class="font-semibold text-goldDark block text-xs" id="adatLocationArea">Area:
