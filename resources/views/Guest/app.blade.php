@@ -27,7 +27,8 @@
             <div
                 class="mt-8 mb-8 p-5 bg-paper/90 border border-goldBorder rounded-2xl shadow-[0_15px_35px_rgba(110,77,32,0.08)]">
                 <span class="text-xs text-inkMuted block mb-1">Kepada Yth. Bapak/Ibu/Saudara/i:</span>
-                <p id="coverGuestName" class="font-serif text-2xl sm:text-3xl text-goldDark font-semibold">{{ $data->name }}</p>
+                <p id="coverGuestName" class="font-serif text-2xl sm:text-3xl text-goldDark font-semibold">{{ $data->name }}
+                </p>
                 <div id="coverBadgeWrapper" class="mt-2.5">
                     <span id="coverGuestCategoryBadge"
                         class="inline-block px-3 py-1 bg-gold/15 text-goldDark text-[10px] tracking-widest uppercase rounded-full font-semibold">
@@ -110,13 +111,13 @@
             @endphp
 
             <a href="{{ $calendarUrl }}" target="_blank" rel="noopener noreferrer"
-               class="inline-flex  justify-center px-5 py-2.5 gap-2 items-center bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wide hover:opacity-90 transition">
+                class="inline-flex  justify-center px-5 py-2.5 gap-2 items-center bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wide hover:opacity-90 transition">
                 <!-- Ikon Kalender -->
                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                    <rect x="3" y="4" width="18" height="18" rx="3" stroke-linecap="round"/>
-                    <line x1="16" y1="2" x2="16" y2="6" stroke-linecap="round"/>
-                    <line x1="8" y1="2" x2="8" y2="6" stroke-linecap="round"/>
-                    <line x1="3" y1="10" x2="21" y2="10" stroke-linecap="round"/>
+                    <rect x="3" y="4" width="18" height="18" rx="3" stroke-linecap="round" />
+                    <line x1="16" y1="2" x2="16" y2="6" stroke-linecap="round" />
+                    <line x1="8" y1="2" x2="8" y2="6" stroke-linecap="round" />
+                    <line x1="3" y1="10" x2="21" y2="10" stroke-linecap="round" />
                 </svg>
                 <span>Simpan ke Google Calendar</span>
             </a>
@@ -158,11 +159,12 @@
                             <b class="text-ink">Sabtu, 12 Desember 2026</b><br>
                             10.00 WIB – selesai
                         </div>
-                          <div class="mt-2.5 p-3 rounded-xl bg-ivory border border-goldBorder/60" id="adatLocationBox">
-                                <span class="font-semibold text-goldDark block text-xs" id="adatLocationArea">Area:
-                                    Lantai 2 gedung</span>
-                                <span class="text-[11px] text-inkMuted" id="adatLocationNote">Khusus teman & kolega pengantin</span>
-                            </div>
+                        <div class="mt-2.5 p-3 rounded-xl bg-ivory border border-goldBorder/60" id="adatLocationBox">
+                            <span class="font-semibold text-goldDark block text-xs" id="adatLocationArea">Area:
+                                Lantai 2 gedung</span>
+                            <span class="text-[11px] text-inkMuted" id="adatLocationNote">Khusus teman & kolega
+                                pengantin</span>
+                        </div>
                     </div>
 
                 </div>
@@ -170,7 +172,7 @@
         </div>
     </section>
 
-     <!-- ================= LOKASI SECTION ================= -->
+    <!-- ================= LOKASI SECTION ================= -->
     <section id="lokasi" class="pb-20">
         <div class="max-w-6xl mx-auto px-5">
             <div class="text-center mb-10">
@@ -275,13 +277,14 @@
                 <div class="text-gold">✦</div>
             </div>
 
-            <form method="post" action="{{ url('rsvp/guest/'.$data->id.'/update') }}" id="rsvpForm"
+            <form method="post" action="{{ url('rsvp/guest/' . $data->id . '/update') }}" id="rsvpForm"
                 class="relative bg-paper border border-lineColor rounded-3xl p-7 sm:p-9 max-w-xl mx-auto shadow-[0_15px_40px_rgba(110,77,32,0.06)]">
                 @csrf
                 @method('PUT')
 
                 <!-- Loader Overlay -->
-                <div id="rsvpLoader" class="hidden absolute inset-0 bg-paper/90 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center z-20 transition-all">
+                <div id="rsvpLoader"
+                    class="hidden absolute inset-0 bg-paper/90 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center z-20 transition-all">
                     <div class="w-9 h-9 border-3 border-gold/30 border-t-gold rounded-full animate-spin mb-3"></div>
                     <span class="text-xs font-semibold text-goldDark tracking-wide">Menyimpan konfirmasi...</span>
                 </div>
@@ -289,13 +292,16 @@
                 <!-- 1. Ringkasan Data Konfirmasi -->
                 <div id="rsvpSummary" class="{{ $data->has_answer ? '' : 'hidden' }}">
                     <div class="text-center mb-6">
-                        <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gold/10 text-goldDark mb-3">
+                        <span
+                            class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gold/10 text-goldDark mb-3">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                                </path>
                             </svg>
                         </span>
                         <h3 class="font-serif text-xl text-ink font-semibold">Konfirmasi Anda Telah Diterima</h3>
-                        <p class="text-xs text-inkMuted mt-1">Terima kasih atas konfirmasi kehadiran yang telah Anda berikan.</p>
+                        <p class="text-xs text-inkMuted mt-1">Terima kasih atas konfirmasi kehadiran yang telah Anda
+                            berikan.</p>
                     </div>
 
                     <!-- Ringkasan Data Konfirmasi -->
@@ -309,26 +315,31 @@
                             <span class="text-inkMuted uppercase tracking-wider font-semibold">Status Kehadiran</span>
                             <span id="summaryAttendingBadge">
                                 @if ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true)
-                                    <span class="px-2.5 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                    <span
+                                        class="px-2.5 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                         Akan Hadir
                                     </span>
                                 @else
-                                    <span class="px-2.5 py-0.5 rounded-full font-semibold bg-stone-100 text-stone-600 border border-stone-200">
+                                    <span
+                                        class="px-2.5 py-0.5 rounded-full font-semibold bg-stone-100 text-stone-600 border border-stone-200">
                                         Tidak Dapat Hadir
                                     </span>
                                 @endif
                             </span>
                         </div>
 
-                        <div id="summaryGuestCountRow" class="flex justify-between items-center pb-2.5 border-b border-lineColor/60 {{ ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true) ? '' : 'hidden' }}">
+                        <div id="summaryGuestCountRow"
+                            class="flex justify-between items-center pb-2.5 border-b border-lineColor/60 {{ ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true) ? '' : 'hidden' }}">
                             <span class="text-inkMuted uppercase tracking-wider font-semibold">Jumlah Hadir</span>
-                            <span class="font-medium text-ink" id="summaryGuestCount">{{ $data->amount_of_guest ?? 1 }} Orang</span>
+                            <span class="font-medium text-ink" id="summaryGuestCount">{{ $data->amount_of_guest ?? 1 }}
+                                Orang</span>
                         </div>
 
                         <div class="flex justify-between items-start pb-2.5 border-b border-lineColor/60">
                             <span class="text-inkMuted uppercase tracking-wider font-semibold">Kelompok &amp; Lokasi</span>
                             <div class="text-right">
-                                <span class="font-medium text-ink block">{{ $data->is_private_cat ? 'Nasional Tamu Pengantin (Teman & Kolega)' : 'Nasional Umum Keluarga Besar KSP / Umum' }}</span>
+                                <span
+                                    class="font-medium text-ink block">{{ $data->is_private_cat ? 'Nasional Tamu Pengantin (Teman & Kolega)' : 'Nasional Umum Keluarga Besar KSP / Umum' }}</span>
                                 <span class="text-[11px] text-inkMuted">
                                     {{ $data->is_private_cat ? 'Lantai 2 Gedung' : '' }}
                                 </span>
@@ -336,8 +347,10 @@
                         </div>
 
                         <div id="summaryWishesRow" class="pt-1 {{ !empty($data->wishes ?? $data->notes) ? '' : 'hidden' }}">
-                            <span class="text-inkMuted uppercase tracking-wider font-semibold block mb-1.5">Ucapan &amp; Doa</span>
-                            <p class="text-ink italic pb-10 bg-white flex p-3 rounded-xl border border-lineColor/60 whitespace-pre-line">
+                            <span class="text-inkMuted uppercase tracking-wider font-semibold block mb-1.5">Ucapan &amp;
+                                Doa</span>
+                            <p
+                                class="text-ink italic pb-10 bg-white flex p-3 rounded-xl border border-lineColor/60 whitespace-pre-line">
                                 <span id="summaryWishesText">"{{ $data->wishes ?? $data->notes }}"</span>
                             </p>
                         </div>
@@ -395,7 +408,8 @@
 
                     <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted mb-1">Kehadiran</label>
                     <div class="grid grid-cols-2 gap-3 mb-4">
-                        <input type="hidden" name="is_attending" id="is_attendingInput" value="{{ ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true) ? 1 : 0 }}">
+                        <input type="hidden" name="is_attending" id="is_attendingInput"
+                            value="{{ ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true) ? 1 : 0 }}">
                         <button type="button" id="yesBtn"
                             class="px-4 py-3 border {{ ($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true) ? 'btn-active-primary' : '' }} border-gold rounded-full cursor-pointer text-goldDark font-semibold text-xs tracking-wide hover:bg-gold/10 transition text-center">
                             Saya Akan Hadir
@@ -406,7 +420,8 @@
                         </button>
                     </div>
 
-                    <div id="guestCountSection" class="{{ (!($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true)) ? 'opacity-50 pointer-events-none' : '' }}">
+                    <div id="guestCountSection"
+                        class="{{ (!($data->is_attending === 'yes' || $data->is_attending === '1' || $data->is_attending === 1 || $data->is_attending === true)) ? 'opacity-50 pointer-events-none' : '' }}">
                         <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted text-center">Jumlah
                             Tamu</label>
                         <div class="flex items-center justify-center gap-5 my-3">
@@ -414,9 +429,11 @@
                                 class="w-10 h-10 flex items-center justify-center border border-gold rounded-full text-goldDark text-lg hover:bg-gold hover:text-white transition">
                                 −</button>
 
-                            <input type="hidden" name="amount_of_guest" id="guestInput" value="{{ $data->amount_of_guest ?? 1 }}">
+                            <input type="hidden" name="amount_of_guest" id="guestInput"
+                                value="{{ $data->amount_of_guest ?? 1 }}">
 
-                            <strong id="guestCount" class="font-serif text-4xl text-goldDark w-8 text-center font-normal">{{ $data->amount_of_guest ?? 1 }}</strong>
+                            <strong id="guestCount"
+                                class="font-serif text-4xl text-goldDark w-8 text-center font-normal">{{ $data->amount_of_guest ?? 1 }}</strong>
                             <button type="button" id="increaseGuestBtn"
                                 class="w-10 h-10 flex items-center justify-center border border-gold rounded-full text-goldDark text-lg hover:bg-gold hover:text-white transition">
                                 +</button>
@@ -443,67 +460,28 @@
 
     <!-- Ucapan & Doa dari tamu lain -->
     @if ($wishes->isNotEmpty())
-    <section id="wishes" class="pb-20">
-        <div class="max-w-xl mx-auto px-5">
-            <div class="text-center mb-8">
-                <h2 class="font-serif text-4xl sm:text-5xl font-normal text-ink">Ucapan &amp; Doa</h2>
-                <p class="text-sm text-inkMuted mt-2">{{ $wishTotal }} pesan hangat dari keluarga dan sahabat</p>
+        <section id="wishes" class="pb-20">
+            <div class="max-w-xl mx-auto px-5">
+                <div class="text-center mb-8">
+                    <h2 class="font-serif text-4xl sm:text-5xl font-normal text-ink">Ucapan &amp; Doa</h2>
+                    <p class="text-sm text-inkMuted mt-2">{{ $wishTotal }} pesan hangat dari keluarga dan sahabat</p>
+                </div>
+                <ul id="wishesList" class="divide-y divide-lineColor border-y border-lineColor">
+                    @include('Guest.wishes-items', ['wishes' => $wishes])
+                </ul>
+                @if ($wishes->hasMorePages())
+                    <div class="text-center mt-6">
+                        <button type="button" id="wishesMore" data-url="{{ $wishes->nextPageUrl() }}"
+                            class="px-6 py-2.5 border border-gold rounded-full text-goldDark font-semibold text-xs tracking-wide hover:bg-gold/10 transition disabled:opacity-50">
+                            Muat lebih banyak
+                        </button>
+                        <p id="wishesError" class="text-xs text-[#9b4d35] mt-3 hidden">Gagal memuat, coba lagi.</p>
+                    </div>
+                @endif
             </div>
-            <ul id="wishesList" class="divide-y divide-lineColor border-y border-lineColor">
-                @include('Guest.wishes-items', ['wishes' => $wishes])
-            </ul>
-            @if ($wishes->hasMorePages())
-            <div class="text-center mt-6">
-                <button type="button" id="wishesMore" data-url="{{ $wishes->nextPageUrl() }}"
-                    class="px-6 py-2.5 border border-gold rounded-full text-goldDark font-semibold text-xs tracking-wide hover:bg-gold/10 transition disabled:opacity-50">
-                    Muat lebih banyak
-                </button>
-                <p id="wishesError" class="text-xs text-[#9b4d35] mt-3 hidden">Gagal memuat, coba lagi.</p>
-            </div>
-            @endif
-        </div>
-    </section>
+        </section>
     @endif
-
-    <!-- Wedding Gift (Amplop Digital) -->
-    <section id="gift" class="pb-20">
-        <div class="max-w-6xl mx-auto px-5">
-            <div class="text-center mb-10">
-                <div class="text-[11px] tracking-[0.28em] uppercase text-gold font-medium">Wedding Gift</div>
-                <h2 class="font-serif text-4xl sm:text-5xl my-2 font-normal">Amplop Digital</h2>
-                <div class="text-gold">✦</div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                <!-- Rekening Pengantin Pria -->
-                <div
-                    class="bg-paper border border-lineColor rounded-3xl p-8 text-center shadow-[0_15px_40px_rgba(110,77,32,0.06)]">
-                    <div class="text-gold font-bold tracking-wider text-sm">BANK CENTRAL ASIA</div>
-                    <div class="font-serif font-semibold text-3xl tracking-wide my-2">7771 753 322</div>
-                    <p class="text-inkMuted text-sm mb-4">a.n. Gideon Mula Gabe Sitorus</p>
-                    <button id="copyRekAccount1"
-                        class="px-5 py-2.5 bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wide hover:opacity-90 transition">
-                        Salin Nomor Rekening
-                    </button>
-                    <p id="copyMsg1" class="text-xs text-inkMuted mt-3 min-h-[1rem]"></p>
-                </div>
-
-                <!-- Rekening Pengantin Wanita -->
-                <div
-                    class="bg-paper border border-lineColor rounded-3xl p-8 text-center shadow-[0_15px_40px_rgba(110,77,32,0.06)]">
-                    <div class="text-gold font-bold tracking-wider text-sm">BANK CENTRAL ASIA</div>
-                    <div class="font-serif font-semibold text-3xl tracking-wide my-2">4341 180 320</div>
-                    <p class="text-inkMuted text-sm mb-4">a.n. Christy Audy Valentine</p>
-                    <button id="copyRekAccount2"
-                        class="px-5 py-2.5 bg-gold text-white border border-gold rounded-full font-semibold text-xs tracking-wide hover:opacity-90 transition">
-                        Salin Nomor Rekening
-                    </button>
-                    <p id="copyMsg2" class="text-xs text-inkMuted mt-3 min-h-[1rem]"></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- Footer -->
     <footer class="pb-26 px-5 text-center ">
         <div class="font-serif text-4xl sm:text-5xl text-goldDark mb-2 font-normal">Christy &amp; Gideon</div>
